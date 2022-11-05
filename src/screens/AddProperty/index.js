@@ -12,11 +12,14 @@ export default function Index() {
 
     const navigate = useNavigate()
     const [tab, setTab] = useState(false)
-    const [preview, setPreview] = useState(true)
+    const [preview, setPreview] = useState(false)
+    const [amount, setAmount] = useState("")
+    const [value, setValue] = useState({name: '', about: '', features: '', category: '', state: '', city: '', address: '', LGA: '', color: '#333'})
+
+    console.log(value);
     
     return (
-        <div className=' w-full relative pl-10 mb-20 ' > 
-
+        <div className=' w-full relative pl-10 mb-20 ' >  
             <div className={!preview ? ' w-full pb-20 ' : ' hidden ' } >
                 <div className=' w-full flex overflow-y-auto justify-between items-center ' >
                     <div className=' flex items-center ' >
@@ -25,7 +28,7 @@ export default function Index() {
                 </div> 
             </div>
             <div className={preview ? ' w-full mb-8 ' : ' hidden ' } >
-                <button onClick={()=> navigate("/dashboard/property")} className=' -ml-5 mb-4 ' > 
+                <button onClick={()=> setPreview(false)} className=' -ml-5 mb-4 ' > 
                     <img src={Back} alt='back' className=' ' />
                 </button>
                 <div className=' w-full flex justify-between items-center ' >
@@ -39,15 +42,15 @@ export default function Index() {
             </div>
             <div className={!preview ? ' w-full pb-20 ' : ' hidden ' } >
                 <div className={!tab ? ' w-full ' : ' hidden ' } >
-                    <PropertyDetails next={setTab} />
+                    <PropertyDetails next={setTab} value={setValue} />
                 </div>
                 <div className={tab ? ' w-full ' : ' hidden ' } >
-                    <PropertyLayout back={setTab} next={setPreview} />
+                    <PropertyLayout back={setTab} value={setAmount} next={setPreview} />
                 </div>
             </div>
 
             <div className={preview ? ' w-full pb-20 ' : ' hidden ' } >
-                <PreviewProperty />
+                <PreviewProperty values={value} amount={amount} />
             </div>
         </div>
     )

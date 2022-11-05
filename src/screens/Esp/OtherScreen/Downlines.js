@@ -19,7 +19,7 @@ export default function Downlines() {
 
     return (
         <div className=' w-full  ' >
-            <button onClick={()=> navigate("/dashboard/property")} className=' -ml-5 mb-4 ' > 
+            <button onClick={()=> navigate(-1)} className=' -ml-5 mb-4 ' > 
                 <img src={Back} alt='back' className=' ' />
             </button>
             <div className=' w-full flex justify-between items-center ' >

@@ -20,7 +20,7 @@ export default function Buyer() {
 
     return (
         <div className=' w-full relative ' >
-            <button onClick={()=> navigate("/dashboard/property")} className=' absolute -top-[75px] -left-5 z-40  ' > 
+            <button onClick={()=> navigate(-1)} className=' -ml-5 mb-4 ' > 
                 <img src={Back} alt='back' className=' ' />
             </button>
             <div className=' w-full flex justify-between items-center ' >

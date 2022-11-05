@@ -10,7 +10,7 @@ export default function EditProperty() {
 
     return (
         <div className=' w-full relative ' >
-            <button onClick={()=> navigate("/dashboard/property")} className=' -ml-5 mb-4 ' > 
+            <button onClick={()=> navigate(-1)} className=' -ml-5 mb-4 ' > 
                 <img src={Back} alt='back' className=' ' />
             </button>
             <div className=' w-full flex overflow-y-auto justify-between items-center ' >
