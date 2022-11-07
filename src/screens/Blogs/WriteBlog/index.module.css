@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.myProperty{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.myProperty > p{
+    font-family: Montserrat;
+font-size: 20px;
+font-weight: 800;
+color: #2E3A59;
+}
+
+.postTitle{
+    width: 100%;
+    border: 1px solid #6F6F6F;
+    border-radius: 20px;
+    font-family: Montserrat;
+font-size: 13px;
+font-weight: 500;
+color: #6F6F6F;
+padding: 10px 23px;
+}
+
+.postHolder{
+    margin-top: 44px;
+}
+
+.postHolder > button{
+    background: #FF9533;
+border-radius: 20px;
+font-family: Montserrat;
+font-size: 16px;
+font-weight: 600;
+padding: 10px 20px;
+color: #fff;
+}
+
+.uploadBox{
+    background: #D9D9D9;
+border: 1px solid #D4D4D4;
+border-radius: 10px;
+margin-top: 64px;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-block: 46px 71px;
+}
+
+.drop{
+    font-family: Montserrat;
+font-size: 30px;
+font-style: italic;
+font-weight: 500;
+margin-block: 43px 21px;
+text-align: center;
+}
+
+.file{
+    font-family: Montserrat;
+font-size: 13px;
+font-weight: 500;
+color: #6F6F6F;
+}
+
+.area{
+    border: 1px solid #666666;
+border-radius: 10px;
+margin-top: 41px;
+width: 100%;
+min-height: 200px;
+padding: 20px 30px;
+}
+
+
+
+.editor{
+    height: 100%;
+}
+
+.myProperty > input{
+    font-family: Inter;
+font-size: 13px;
+font-weight: 500;
+    padding: 16px 13px;
+    border: 1px solid #E4E6EE;
+border-radius: 4px;
+}

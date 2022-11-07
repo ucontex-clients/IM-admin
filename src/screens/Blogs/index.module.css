@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+
+.myProperty{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.myProperty > p{
+    font-family: Montserrat;
+font-size: 20px;
+font-weight: 800;
+color: #2E3A59;
+}
+
+
+.myProperty > input{
+    font-family: Inter;
+font-size: 13px;
+font-weight: 500;
+    padding: 16px 13px;
+    border: 1px solid #E4E6EE;
+border-radius: 4px;
+}
+
+.allPosts{
+    margin-top: 34px;
+    display: flex;
+    column-gap: 40px;
+    border-bottom: 1.5px solid #101010;
+}
+
+.allPosts > p{
+    font-family: Montserrat;
+font-size: 16px;
+font-weight: 700;
+padding: 2px 14px;
+cursor: pointer;
+position: relative;
+top: 2px;
+}
+
+
+.availablePosts{
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+}

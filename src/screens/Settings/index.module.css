@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+ 
+.MontserratExtraBold {
+    font-family: Montserrat; 
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.MontserratSemiBold {
+    font-family: Montserrat; 
+    font-weight: 600;
+    font-size: 16px;
+}
+.small{
+font-family: Montserrat;
+font-size: 12px;
+font-weight: 400;
+}
+
+.dashboardWrapper{
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    margin-top: 28px;
+    column-gap: 20px;
+}
+
+.dashboardContainer{
+    position: relative;
+}
+
+.homeBottom{
+    grid-column: 1/-1;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
+}
+
+
+
+.dashboardContainer > p{
+    font-family: Montserrat;
+font-size: 20px;
+font-weight: 800;
+color: #2E3A59;
+}
+
+.dashboardContainer > div{
+    margin-top: 24px;
+}
+
+
+.fileCountHolder{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 12px;
+}
+
+.arrow{
+    position: absolute;
+    top: -20px;
+    right: 12px;
+}
+
+.myRecentHolder{
+    display: flex;
+    flex-direction: column;
+    row-gap: 11px;
+}
+
+.bottomHeading{
+    display: grid;
+    grid-template-columns: 1.5fr 0.7fr 1fr 0.5fr 1fr 1fr 1fr;
+    padding: 16px 11px;
+    column-gap: 10px;
+    justify-content: space-between;
+    background: #F7F8FA;
+border: 1px solid #EFF0F4;
+border-radius: 8px;
+}
+
+.bottomHeading p{
+    font-family: Montserrat;
+font-size: 12px;
+font-weight: 600;
+color: #505470;
+text-align: center;
+}
+
+

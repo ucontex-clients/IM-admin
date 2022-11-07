@@ -7,11 +7,13 @@ import Client from "./screens/Client"
 import AddProperty from "./screens/AddProperty"
 import Esp from "./screens/Esp"
 import ProfileInfo from "./screens/ProfileInfo"
+import Settings from "./screens/Settings"
 import SellProperty from "./screens/SellProperty"
 import Buyer from "./screens/Property/OtherScreens/Buyer"
 import EditProperty from "./screens/Property/OtherScreens/EditProperty";
 import Downlines from "./screens/Esp/OtherScreen/Downlines";
 import Login from "./screens/Login";
+import { MyBlogs } from "./screens/Blogs";
 
 function App() {
   return (
@@ -26,9 +28,11 @@ function App() {
             <Route path='/dashboard/property/buyer' element={<Buyer />}/>
             <Route path='/dashboard/property/edit-property' element={<EditProperty />}/>
             <Route path='/dashboard/booking' element={<Booking />}/>
+            <Route path='/dashboard/blog' element={<MyBlogs />}/>
             <Route path='/dashboard/client' element={<Client />}/>
             <Route path='/dashboard/user-info' element={<ProfileInfo />}/>
             <Route path='/dashboard/esp' element={<Esp />}/>
+            <Route path='/dashboard/settings' element={<Settings />}/>
             <Route path='/dashboard/esp/downlines' element={<Downlines />}/>
             <Route path='/dashboard/sell-property' element={<SellProperty />}/>
           </Route> 

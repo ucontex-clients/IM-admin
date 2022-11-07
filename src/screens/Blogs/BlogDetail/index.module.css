@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.myProperty{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.myProperty > p{
+    font-family: Montserrat;
+font-size: 20px;
+font-weight: 800;
+color: #2E3A59;
+}
+
+.adminDate {
+    display: flex;
+    column-gap: 82px;
+    margin-top: 10px;
+}
+
+.adminDate > p{
+    font-family: Montserrat;
+font-size: 13px;
+font-weight: 600;
+color: #6C6C6C;
+}
+
+
+.myProperty > input{
+    font-family: Inter;
+font-size: 13px;
+font-weight: 500;
+    padding: 16px 13px;
+    border: 1px solid #E4E6EE;
+border-radius: 4px;
+}
+
+
+.detailImage{
+    border-radius:10px;
+    width: fit-content;
+    height: fit-content;
+    overflow: hidden;
+}
+
+.readDetail > p:first-child{
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 700;
+    margin-block: 54px 30px;
+}
+
+.readDetail > p:last-child {
+    font-family: Montserrat;
+font-size: 15px;
+font-weight: 500;
+text-align: justify;
+}
+
+.postHolder{
+    margin-top: 44px;
+}
+
+.postHolder > button{
+    background: #FF9533;
+border-radius: 20px;
+font-family: Montserrat;
+font-size: 16px;
+font-weight: 600;
+padding: 10px 20px;
+color: #fff;
+}

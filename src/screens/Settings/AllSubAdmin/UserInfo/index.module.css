@@ -1,0 +1,42 @@
+.avatar{
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+}
+
+.userData{
+    display: grid;
+    grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr;
+    padding-inline: 11px;
+    column-gap: 10px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.userData p{
+font-family: Poppins;
+font-size: 10px;
+font-weight: 500;
+text-align: center;
+}
+
+.viewButton{
+    /* padding: 4px 37px;
+    background: rgba(9, 132, 214, 0.1);
+border-radius: 9px; */
+color: #0984D6;
+font-family: Poppins;
+font-size: 12px;
+/* margin-left: 40px; */
+font-weight: 500;
+}
+
+.verified1{
+    color: #24C18F;
+}
+
+.verified2{
+    color: #192A3E;
+}
