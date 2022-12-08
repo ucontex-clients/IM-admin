@@ -10,7 +10,7 @@ export default function PropertyLayout(props) {
                 <div className=' w-full mr-3 overflow-y-auto flex flex-col font-Montserrat-Medium mt-4 p-6 pb-12 border rounded-lg ' > 
                     <p className=' my-6 font-Montserrat-Bold text-xl ' >About Property Info</p>
                     <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Upload Layout Photo</p> 
-                    <Input type="file" paddingTop="7px" placeholder='Enter the address of the property' height="45px" border=" 1px solid #000 " />
+                    <Input type="file" paddingTop="7px"  height="45px" border=" 1px solid #000 " />
                     <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Price per Square Meter</p>
                     <Input onChange={(e)=> props.value(e.target.value)} placeholder='1000' height="45px" border=" 1px solid #000 " /> 
                     <p className=' text-[15px] font-Inter-SemiBold mt-1 ' >Enter Price for 1 Square meter of the property</p>
@@ -21,7 +21,7 @@ export default function PropertyLayout(props) {
                         <p className=' text-[15px] my-6 font-Inter-Regular' >Measurement</p>
                         <div className=' w-full flex ' >
                             <div className=' w-full mr-4 ' >
-                                <p className=' text-[15px] font-Inter-SemiBold mb-2 ' >Lenght</p>
+                                <p className=' text-[15px] font-Inter-SemiBold mb-2 ' >Length</p>
                                 <Input placeholder='30' height="45px" border=" 1px solid #000 " />  
                             </div>
                             <div className=' w-full ' >
