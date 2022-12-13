@@ -19,7 +19,7 @@ export default function Index() {
     console.log(value);
 
     return (
-        <div className=' w-full relative pl-10 mb-20 ' >
+        <div className='w-full relative pl-10 mb-20' >
             <div className={!preview ? ' w-full pb-20 ' : ' hidden '} >
                 <div className=' w-full flex overflow-y-auto justify-between items-center ' >
                     <div className=' flex items-center ' >

@@ -91,7 +91,7 @@ export default function PropertyDetails(props) {
         // setLoading(true);
         if (!formik.dirty) {
             //   alert('You have to fill in th form to continue');
-            setMessage('You have to fill in th form to continue')
+            setMessage('You have to fill in the form to continue')
             setShowModal(2)
             const t1 = setTimeout(() => {
                 setShowModal(0)
@@ -100,7 +100,7 @@ export default function PropertyDetails(props) {
             setLoading(false);
             return;
         } else if (!formik.isValid) {
-            setMessage('You have to fill in th form to continue')
+            setMessage('You have to fill in the form to continue')
             setShowModal(2)
             const t1 = setTimeout(() => {
                 setShowModal(0)

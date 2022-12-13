@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Input, Select, Textarea } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import Right from '../../../assests/images/icons/right.png'
@@ -15,8 +15,12 @@ export default function PreviewProperty(props) {
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(false);
 
-    const [url, setUrl] = useState("https://alert-battledress-boa.cyclic.app/api/admin/login");
+    const [url, setUrl] = useState("https://alert-battledress-boa.cyclic.app/api/property/add");
 
+    let [layoutMap, setLayoutMap] = useState([]);
+    useEffect(() => {
+        setLayoutMap(JSON.parse(localStorage.getItem("layout")))
+    }, [])
     const submit = async () => {
         setLoading(true)
         try {
@@ -35,10 +39,12 @@ export default function PreviewProperty(props) {
             formData.append('color', props.data.color)
             formData.append('images', props.data?.images)
 
-            const request = await axios.default.post(url, formData, {
+            // const request = await axios.default.post(url, formData, {
+            await axios.default.post(url, formData, {
                 headers: {
                     'content-type': 'application/json',
                     // Authorization : `Bearer ${getCookie("token")}`
+                    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmNzVhOWE1MGJmNjNlZDNjNTExNjUiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzA1NDU2MDgsImV4cCI6MTY3MzEzNzYwOH0.xopzgQH16saT9xJLxRVhtAhoDo26s3NQNY2lgd0Gttk`
                 }
             })
             setMessage('Property Uploaded Successfully')
@@ -124,105 +130,26 @@ export default function PreviewProperty(props) {
             <div className=' w-[860px] border rounded-lg mt-6 pb-8 flex flex-col border-[#C6C5C5] p-1 ' >
                 <p className=' font-Montserrat-Regular text-[#038566] ml-auto mr-6' >30 Plots</p>
                 <div className=' w-full grid grid-cols-6 gap-4 mt-4 ' >
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
-                    <div className=' w-full ' >
-                        <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                            <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                            <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                            <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                            <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                        </div>
-                        <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
-                    </div>
+                    {layoutMap.map((e, i) => {
+                        return (
+                            // <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
+                            //     <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >{e.shortSide}m</p>
+                            //     <p className=' text-center font-Montserrat-Regular text-xs ' >{e.longSide}m</p>
+                            //     <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >{e.area} SQ.M</p>
+                            //     <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N{e.amount}</p>
+                            // </div>
+                            <div className=' w-full ' >
+                                <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
+                                    <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >{e.shortSide}m</p>
+                                    <p className=' text-center font-Montserrat-Regular text-xs ' >{e.longSide}m</p>
+                                    <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >{e.area} SQ.M</p>
+                                    <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N{e.amount}</p>
+                                </div>
+                                <p className=' font-Montserrat-Regular text-xs mt-1 ' >Residential CGE -001</p>
+                            </div>
+
+                        )
+                    })}
                 </div>
             </div>
 
