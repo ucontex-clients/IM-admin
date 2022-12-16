@@ -1,52 +1,82 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Select, Textarea } from '@chakra-ui/react'
-import Add from '../../../assests/images/icons/addp.png'
+import Add from '../../../assests/images/icons/addp.png';
+import axios from 'axios';
+import Modal from '../../../components/modal';
 
 export default function PropertyLayout(props) {
-    let [price, setPrice] = useState(1);
+    let [price, setPrice] = useState(+localStorage.getItem("pricePerSm"));
     let [length, setLength] = useState(1);
     let [width, setWidth] = useState(1);
     let [cost, setCost] = useState(false);
-    let sendValue = (e) => {
-        setPrice(e);
-        props.value(e)
-    };
+    // let sendValue = (e) => {
+    //     setPrice(e);
+    //     props.value(e)
+    // };
     let [layout, setLayout] = useState([]);
     let [layoutMap, setLayoutMap] = useState([]);
+    const [modal, setShowModal] = React.useState(0)
+    const [message, setMessage] = React.useState('');
 
     useEffect(() => {
         setLayoutMap(JSON.parse(localStorage.getItem("layout")))
     }, [])
-    let createLayout = () => {
+    let createLayout = async () => {
+        let data = {
+            width: +width,
+            length: +length,
+            color: "red"
+        };
+        let propertyId = localStorage.getItem("propertyId");
+        let url = "https://alert-battledress-boa.cyclic.app/api/property/addplot/" + propertyId;
+
+
+        await axios.put(url, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmNzVhOWE1MGJmNjNlZDNjNTExNjUiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzA1NDU2MDgsImV4cCI6MTY3MzEzNzYwOH0.xopzgQH16saT9xJLxRVhtAhoDo26s3NQNY2lgd0Gttk`
+            }
+        })
+            .then(res => {
+                console.log(res)
+            })
+
         let obj = {
-            area: length * width,
-            amount: Math.round(price * length * width * 10) / 10,
-            shortSide: width,
-            longSide: length
+            "area": length * width,
+            "price": Math.round(price * length * width * 10) / 10,
+            "width": width,
+            "length": length,
+            "color": "red"
         };
         layout.push(obj)
         localStorage.setItem("layout", JSON.stringify(layout))
         setLength(1)
         setWidth(1)
         getProperty()
+        setMessage('Plot added')
+        setShowModal(2)
+        const t1 = setTimeout(() => {
+            setShowModal(0)
+            clearTimeout(t1);
+        }, 2000);
     };
     let getProperty = () => {
         setLayoutMap(JSON.parse(localStorage.getItem("layout")))
     };
+    let nextPage = () => {
+        props.next(true);
+        props.load()
+    }
     return (
         <div className=' w-full flex flex-col ' >
+            <Modal message={message} modal={modal} />
             <div className=' w-full flex ' >
                 <div className=' w-full mr-3 overflow-y-auto flex flex-col font-Montserrat-Medium mt-4 p-6 pb-12 border rounded-lg ' >
                     <p className=' my-6 font-Montserrat-Bold text-xl ' >About Property Info</p>
                     <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Upload Layout Photo</p>
                     <Input type="file" paddingTop="7px" height="45px" border=" 1px solid #000 " />
-                    <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Price per Square Meter</p>
-                    <Input value={price} onChange={(e) => sendValue(e.target.value)} placeholder='1000' height="45px" border=" 1px solid #000 " />
-                    <p className=' text-[15px] font-Inter-SemiBold mt-1 ' >Enter Price for 1 Square meter of the property</p>
-                    <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Price per Square Meter</p>
                     <div className=' w-full mt-3 border border-[#000000] rounded-md p-6 ' >
-                        <p className=' text-[15px] font-Inter-SemiBold mb-2 ' >Title</p>
-                        <Input placeholder='Residential' height="45px" border=" 1px solid #000 " />
+                        <p className=' text-[15px] font-Inter-SemiBold mb-2 ' >New Plot</p>
                         <p className=' text-[15px] my-6 font-Inter-Regular' >Measurement</p>
                         <div className=' w-full flex ' >
                             <div className=' w-full mr-4 ' >
@@ -80,13 +110,13 @@ export default function PropertyLayout(props) {
                     <p className=' my-6 font-Montserrat-Bold text-xl  ' >Property Layout Preview</p>
                     <div className=' w-full border-t border-[#C6C5C5] pt-6  '>
                         <div className=' w-full grid grid-cols-3 gap-6 ' >
-                            {layoutMap.map((e, i) => {
+                            {layoutMap?.map((e, i) => {
                                 return (
                                     <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                                        <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >{e.shortSide}m</p>
-                                        <p className=' text-center font-Montserrat-Regular text-xs ' >{e.longSide}m</p>
+                                        <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >{e.width}m</p>
+                                        <p className=' text-center font-Montserrat-Regular text-xs ' >{e.length}m</p>
                                         <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >{e.area} SQ.M</p>
-                                        <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N{e.amount}</p>
+                                        <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N{e.price}</p>
                                     </div>
 
                                 )

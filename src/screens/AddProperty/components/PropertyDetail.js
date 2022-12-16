@@ -1,11 +1,11 @@
 import React from 'react'
 import { Input, Select, Spinner, Textarea } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+import { json, useNavigate } from 'react-router-dom'
 import Add from '../../../assests/images/icons/addp.png'
 import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik';
-import * as axios from 'axios'
+import * as axios from 'axios';
 import Modal from '../../../components/modal'
 
 export default function PropertyDetails(props) {
@@ -28,20 +28,26 @@ export default function PropertyDetails(props) {
 
     const loginSchema = yup.object({
         name: yup.string().required('Required'),
-        // pricePerSm: yup.string().required('Required'),
+        pricePerSm: yup.string().required('Required'),
         about: yup.string().required('Required'),
-        features: yup.string().required('Required'),
-        // category: yup.string().required('Required'),
+        propertyFeatures: yup.string().required('Required'),
+        estateFeatures: yup.string().required('Required'),
+        category: yup.string().required('Required'),
         state: yup.string().required('Required'),
         city: yup.string().required('Required'),
         address: yup.string().required('Required'),
         LGA: yup.string().required('Required'),
+        totalPlotSize: yup.string().required('Required'),
+        ticker: yup.string().required('Require'),
         // color: yup.string().required('Required'), 
     })
 
     // formik
     const formik = useFormik({
-        initialValues: { name: '', about: '', features: '', state: '', city: '', address: '', LGA: '', color: '#333' },
+        initialValues: {
+            name: '', about: '', propertyFeatures: '', estateFeatures: '', state: '', city: '', address: '', LGA: '', totalPlotSize: ''
+            , ticker: '', category: '', pricePerSm: ''
+        },
         validationSchema: loginSchema,
         onSubmit: () => { },
     });
@@ -110,11 +116,57 @@ export default function PropertyDetails(props) {
             setLoading(false);
             return;
         } else {
-            props.value({ name: formik.values.name, pricePerSm: formik.values.pricePerSm, about: formik.values.about, features: formik.values.features, state: formik.values.state, city: formik.values.city, address: formik.values.address, LGA: formik.values.LGA, color: formik.values.color, images: imageFiles })
+            // props.value({
+            //     name: formik.values.name, pricePerSm: formik.values.pricePerSm, about: formik.values.about, propertyFeatures: formik.values.propertyFeatures, estateFeatures: formik.values.estateFeatures, state: formik.values.state, city: formik.values.city, address: formik.values.address, LGA: formik.values.LGA, color: formik.values.color, images: imageFiles,
+            //     totalPlotSize: formik.values.totalPlotSize, ticker: formik.values.ticker, category: formik.values.category,
+            // })
+            // props.next(true)
+            let url = "https://alert-battledress-boa.cyclic.app/api/property/add";
+
+            let formData = new FormData()
+
+            formData.append('name', formik.values.name)
+            formData.append('pricePerSm', +formik.values.pricePerSm)
+            formData.append('about', formik.values.about)
+            formData.append('propertyFeatures', formik.values.propertyFeatures.split(", "))
+            formData.append('estateFeatures', formik.values.estateFeatures.split(", "))
+            formData.append('category', formik.values.category)
+            formData.append('state', formik.values.state)
+            formData.append('city', formik.values.city)
+            formData.append('address', formik.values.address)
+            formData.append('LGA', formik.values.LGA)
+            formData.append('images', formik.values?.imageFiles)
+            formData.append('ticker', formik.values.ticker)
+            formData.append('totalPlotSize', +formik.values.totalPlotSize)
+
+            // let data = {
+            //     name: formik.values.name, pricePerSm: +formik.values.pricePerSm, about: formik.values.about, propertyFeatures: formik.values.propertyFeatures.split(", "), estateFeatures: formik.values.estateFeatures.split(", "),
+            //     state: formik.values.state, city: formik.values.city, address: formik.values.address, LGA: formik.values.LGA, images: imageFiles,
+            //     totalPlotSize: +formik.values.totalPlotSize, ticker: formik.values.ticker, category: formik.values.category,
+            // }
+            let data = {
+                name: formik.values.name, pricePerSm: +formik.values.pricePerSm, about: formik.values.about, propertyFeatures: formik.values.propertyFeatures.split(", "),
+                estateFeatures: formik.values.estateFeatures.split(", "),
+                state: formik.values.state, city: formik.values.city, address: formik.values.address, LGA: formik.values.LGA,
+                totalPlotSize: +formik.values.totalPlotSize, ticker: formik.values.ticker, category: formik.values.category,
+            }
+            await fetch(url, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmNzVhOWE1MGJmNjNlZDNjNTExNjUiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzA1NDU2MDgsImV4cCI6MTY3MzEzNzYwOH0.xopzgQH16saT9xJLxRVhtAhoDo26s3NQNY2lgd0Gttk`
+                },
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+                .then((e) => e.json())
+                .then(res => {
+                    console.log(res.data)
+                    localStorage.setItem("propertyId", res.data._id)
+                    localStorage.setItem("pricePerSm", res.data.pricePerSm)
+                })
             props.next(true)
         }
-        // props.next(true)
-    }
+    };
 
     const handleImageChange = (e) => {
         if (e.target.files) {
@@ -127,8 +179,7 @@ export default function PropertyDetails(props) {
                 (file) => URL.revokeObjectURL(file) // avoid memory leak
             );
         }
-    }
-
+    };
 
     function handleRemove(id, file) {
         const newList = selectedFiles.filter((item) => item !== id);
@@ -140,7 +191,7 @@ export default function PropertyDetails(props) {
             setShow(prev => !prev);
         }
         setSelectedFiles(newList);
-    }
+    };
 
     const renderPhotos = (source) => {
         return source.map((photo, index) => {
@@ -170,13 +221,13 @@ export default function PropertyDetails(props) {
             selectedFiles.pop();
             imageFiles.pop();
         }
-    }
+    };
 
     if (!loading) {
         return (
             <div className=' w-[600px] overflow-y-auto flex flex-col font-Montserrat-Medium mt-4 p-6 pb-12 border rounded-lg ' >
                 <Modal message={message} modal={modal} />
-                <p className=' my-6 font-Montserrat-Bold  ' >About Property Info</p>
+                <p className=' my-2 font-Montserrat-Bold  ' >About Property Info</p>
                 <div className='w-full' >
                     <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Name of Property</p>
                     <Input
@@ -219,7 +270,7 @@ export default function PropertyDetails(props) {
                         )}
                     </div>
                 </div>
-                {/* <div className='w-full' >
+                <div className='w-full' >
                     <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Category</p>
                     <Input
                         name="category"
@@ -227,7 +278,7 @@ export default function PropertyDetails(props) {
                         onFocus={() =>
                             formik.setFieldTouched("category", true, true)
                         }
-                        placeholder='Category' height="45px" border=" 1px solid #000 " />
+                        placeholder='Residential or Industrial' height="45px" border=" 1px solid #000 " />
                     <div className="w-full h-auto pt-2">
                         {formik.touched.category && formik.errors.category && (
                             <motion.p
@@ -239,24 +290,13 @@ export default function PropertyDetails(props) {
                             </motion.p>
                         )}
                     </div>
-                </div> */}
+                </div>
                 <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Location</p>
                 <div className=' flex  ' >
                     <div className=' w-full mr-4 ' >
                         <Select
                             disabled
                             placeholder='Nigeria' height="45px" border=" 1px solid #000 " />
-                        {/* <div className="w-full h-auto pt-2">
-                            {formik.touched.companyEmail && formik.errors.companyEmail && (
-                                <motion.p
-                                    initial={{ y: -100, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    className="text-xs font-Inter-SemiBold text-[#ff0000]"
-                                >
-                                    {formik.errors.companyEmail}
-                                </motion.p>
-                            )}
-                        </div> */}
                     </div>
                     <div className=' w-full mr-4 ' >
                         <Select
@@ -313,7 +353,7 @@ export default function PropertyDetails(props) {
                         </div>
                     </div>
                 </div>
-                {/* <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Name of Property</p> */}
+
                 <div className=' flex  ' >
                     <div className=' w-full mr-4 ' >
                         <Input
@@ -356,25 +396,113 @@ export default function PropertyDetails(props) {
                         </div>
                     </div>
                 </div>
-                <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Features</p>
+
+                <div className='flex mt-5 gap-4'>
+                    <div className=' w-full ' >
+                        <p>Total Plot Size</p>
+                        <Input
+                            name="totalPlotSize"
+                            onChange={formik.handleChange}
+                            onFocus={() =>
+                                formik.setFieldTouched("totalPlotSize", true, true)
+                            }
+                            placeholder='Total Plot Size' height="45px" border=" 1px solid #000 " />
+                        <div className="w-full h-auto pt-2">
+                            {formik.touched.totalPlotSize && formik.errors.totalPlotSize && (
+                                <motion.p
+                                    initial={{ y: -100, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                >
+                                    {formik.errors.totalPlotSize}
+                                </motion.p>
+                            )}
+                        </div>
+                    </div>
+                    <div className=' w-full  ' >
+                        <p>Price Per Sqm</p>
+                        <Input
+                            name="pricePerSm"
+                            onChange={formik.handleChange}
+                            onFocus={() =>
+                                formik.setFieldTouched("pricePerSm", true, true)
+                            }
+                            placeholder='Price per Sqm' height="45px" border=" 1px solid #000 " />
+                        <div className="w-full h-auto pt-2">
+                            {formik.touched.pricePerSm && formik.errors.pricePerSm && (
+                                <motion.p
+                                    initial={{ y: -100, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                >
+                                    {formik.errors.pricePerSm}
+                                </motion.p>
+                            )}
+                        </div>
+                    </div>
+                    <div className=' w-full  ' >
+                        <p>Ticker</p>
+                        <Input
+                            name="ticker"
+                            onChange={formik.handleChange}
+                            onFocus={() =>
+                                formik.setFieldTouched("ticker", true, true)
+                            }
+                            placeholder='Plot Ticker' height="45px" border=" 1px solid #000 " />
+                        <div className="w-full h-auto pt-2">
+                            {formik.touched.ticker && formik.errors.ticker && (
+                                <motion.p
+                                    initial={{ y: -100, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                >
+                                    {formik.errors.ticker}
+                                </motion.p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Property Features</p>
                 <Input
-                    name="features"
+                    name="propertyFeatures"
                     onChange={formik.handleChange}
                     onFocus={() =>
-                        formik.setFieldTouched("features", true, true)
+                        formik.setFieldTouched("propertyFeatures", true, true)
                     }
                     placeholder='Enter the features of the property' height="45px" border=" 1px solid #000 " />
                 <div className="w-full h-auto pt-2">
-                    {formik.touched.features && formik.errors.features && (
+                    {formik.touched.propertyFeatures && formik.errors.propertyFeatures && (
                         <motion.p
                             initial={{ y: -100, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             className="text-xs font-Inter-SemiBold text-[#ff0000]"
                         >
-                            {formik.errors.features}
+                            {formik.errors.propertyFeatures}
                         </motion.p>
                     )}
                 </div>
+
+
+                <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Estate Features</p>
+                <Input
+                    name="estateFeatures"
+                    onChange={formik.handleChange}
+                    onFocus={() =>
+                        formik.setFieldTouched("estateFeatures", true, true)
+                    }
+                    placeholder='Enter the features of the Estate' height="45px" border=" 1px solid #000 " />
+                <div className="w-full h-auto pt-2">
+                    {formik.touched.estateFeatures && formik.errors.estateFeatures && (
+                        <motion.p
+                            initial={{ y: -100, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                        >
+                            {formik.errors.estateFeatures}
+                        </motion.p>
+                    )}
+                </div>
+
                 {/* <p className=' my-6 font-Montserrat-Bold  ' >Edit Norah’s Court Estate</p> */}
                 <br />
                 <p className=' text-[15px] font-Inter-SemiBold mb-2 ' >Upload Photo</p>
@@ -395,11 +523,11 @@ export default function PropertyDetails(props) {
                 <button onClick={() => submit()} className=' bg-[#3DB2FF] mx-auto w-[300px] h-10 mt-8 rounded-md text-white font-Inter-Bold ' >Next</button>
             </div>
         )
-    }
+    };
 
     if (loading) {
         <div className=' w-full flex justify-center ' >
             <Spinner size="lg" />
         </div>
-    }
+    };
 } 
