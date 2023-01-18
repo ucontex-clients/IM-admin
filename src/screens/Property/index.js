@@ -26,8 +26,7 @@ export default function Index() {
             .then(e => e.json())
             .then(res => {
                 setProperty(res)
-            }
-            )
+            })
     };
 
     return (
@@ -53,7 +52,7 @@ export default function Index() {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {property?.map((e,i)=>{
+                            {property?.map((e, i) => {
                                 return <Tr>
                                     <Td><input type="checkbox" /></Td>
                                     <Td>
@@ -81,7 +80,7 @@ export default function Index() {
                                     </Td>
                                 </Tr>
                             })}
-                           
+
                         </Tbody>
                     </Table>
                 </TableContainer>
