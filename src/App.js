@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard"
 import Home from "./screens/Home"
 import Property from "./screens/Property"
@@ -14,35 +14,40 @@ import EditProperty from "./screens/Property/OtherScreens/EditProperty";
 import Downlines from "./screens/Esp/OtherScreen/Downlines";
 import Login from "./screens/Login";
 import { MyBlogs } from "./screens/Blogs";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(true);
+
   return (
-    <div> 
+    <div>
       <Router>
-        <Routes>     
-          <Route path='/' element={<Login />}/>
-          <Route path='/dashboard' element={<Dashboard />}> 
-            <Route path='/dashboard' element={<Home />}/>
-            <Route path='/dashboard/add-property' element={<AddProperty />}/>
-            <Route path='/dashboard/property' element={<Property />}/>
-            <Route path='/dashboard/property/buyer' element={<Buyer />}/>
-            <Route path='/dashboard/property/edit-property' element={<EditProperty />}/>
-            <Route path='/dashboard/booking' element={<Booking />}/>
-            <Route path='/dashboard/blog' element={<MyBlogs />}/>
-            <Route path='/dashboard/client' element={<Client />}/>
-            <Route path='/dashboard/user-info' element={<ProfileInfo />}/>
-            <Route path='/dashboard/esp' element={<Esp />}/>
-            <Route path='/dashboard/settings' element={<Settings />}/>
-            <Route path='/dashboard/esp/downlines' element={<Downlines />}/>
-            <Route path='/dashboard/sell-property' element={<SellProperty />}/>
-          </Route> 
+        <Routes> 
+          <Route path='/' element={<Login />} />
+          <Route path='/dashboard' element={<Dashboard />}>
+            <Route path='/dashboard' element={<Home />} />
+            <Route path='/dashboard/add-property' element={<AddProperty />} />
+            <Route path='/dashboard/property' element={<Property />} />
+            <Route path='/dashboard/property/buyer' element={<Buyer />} />
+            <Route path='/dashboard/property/edit-property' element={<EditProperty />} />
+            <Route path='/dashboard/booking' element={<Booking />} />
+            <Route path='/dashboard/blog' element={<MyBlogs />} />
+            <Route path='/dashboard/client' element={<Client />} />
+            <Route path='/dashboard/user-info' element={<ProfileInfo />} />
+            <Route path='/dashboard/esp' element={<Esp />} />
+            <Route path='/dashboard/settings' element={<Settings />} />
+            <Route path='/dashboard/esp/downlines' element={<Downlines />} />
+            <Route path='/dashboard/sell-property' element={<SellProperty />} />
+          </Route>
+
+
           <Route path='*' element={
             <div className=" w-full h-screen flex justify-center pt-36 " >
-                <p className=" font-Inter-Bold text-4xl " >Page Not Found</p>
+              <p className=" font-Inter-Bold text-4xl " >Page Not Found</p>
             </div>
-          }/>
+          } />
         </Routes>
-      </Router> 
+      </Router>
     </div>
   );
 }

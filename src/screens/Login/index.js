@@ -67,7 +67,7 @@ export default function Index() {
             });
 
             const json = await request.json();
-
+            localStorage.setItem('imAdminToken', json.message.token)
             if (request.status === 200) {
                 // setToken(json.data.token)
                 // localStorage.setItem('token', json.data.token)
