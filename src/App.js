@@ -24,21 +24,20 @@ function App() {
       <Router>
         <Routes> 
           <Route path='/' element={<Login />} />
-          <Route path='/dashboard' element={<Dashboard />}>
-            <Route path='/dashboard' element={<Home />} />
-            <Route path='/dashboard/add-property' element={<AddProperty />} />
-            <Route path='/dashboard/property' element={<Property />} />
-            <Route path='/dashboard/property/buyer' element={<Buyer />} />
-            <Route path='/dashboard/property/edit-property' element={<EditProperty />} />
-            <Route path='/dashboard/booking' element={<Booking />} />
-            <Route path='/dashboard/blog' element={<MyBlogs />} />
-            <Route path='/dashboard/client' element={<Client />} />
-            <Route path='/dashboard/user-info' element={<ProfileInfo />} />
-            <Route path='/dashboard/esp' element={<Esp />} />
-            <Route path='/dashboard/settings' element={<Settings />} />
-            <Route path='/dashboard/esp/downlines' element={<Downlines />} />
-            <Route path='/dashboard/sell-property' element={<SellProperty />} />
-          </Route>
+          <Route path='/dashboard' element={<Dashboard />}/>
+          <Route path='/dashboard' element={<Home />} />
+          <Route path='/dashboard/add-property' element={<AddProperty />} />
+          <Route path='/dashboard/property' element={<Property />} />
+          <Route path='/dashboard/property/buyer' element={<Buyer />} />
+          <Route path='/dashboard/property/edit-property' element={<EditProperty />} />
+          <Route path='/dashboard/booking' element={<Booking />} />
+          <Route path='/dashboard/blog' element={<MyBlogs />} />
+          <Route path='/dashboard/client' element={<Client />} />
+          <Route path='/dashboard/user-info' element={<ProfileInfo />} />
+          <Route path='/dashboard/esp' element={<Esp />} />
+          <Route path='/dashboard/settings' element={<Settings />} />
+          <Route path='/dashboard/esp/downlines' element={<Downlines />} />
+          <Route path='/dashboard/sell-property' element={<SellProperty />} />
 
 
           <Route path='*' element={
