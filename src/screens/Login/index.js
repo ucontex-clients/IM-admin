@@ -19,7 +19,7 @@ export default function Index() {
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const [tokenvalue, setToken] = React.useState('');
-    const [url, setUrl] = useState("https://alert-battledress-boa.cyclic.app/api/admin/login");
+    const [url, setUrl] = useState("https://im-property.herokuapp.com/api/admin/login");
 
     const loginSchema = yup.object({
         username: yup.string().required('Your email is required'),

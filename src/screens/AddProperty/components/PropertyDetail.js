@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input, Select, Spinner, Textarea } from '@chakra-ui/react'
 import { json, useNavigate } from 'react-router-dom'
 import Add from '../../../assests/images/icons/addp.png'
@@ -20,8 +20,10 @@ export default function PropertyDetails(props) {
     const [modal, setShowModal] = React.useState(0)
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(true);
+    const [addedBy, setAddedBy] = useState("638ffb8e9e6bcac32a09d4a8")
 
     const [show, setShow] = React.useState(true)
+    const [firstImage, setFirstImage] = React.useState("")
 
     const [selectedFiles, setSelectedFiles] = React.useState([]);
     const [imageFiles, setImageFiles] = React.useState([]);
@@ -121,23 +123,26 @@ export default function PropertyDetails(props) {
             //     totalPlotSize: formik.values.totalPlotSize, ticker: formik.values.ticker, category: formik.values.category,
             // })
             // props.next(true)
-            let url = "https://alert-battledress-boa.cyclic.app/api/property/add";
+            let url = "https://im-property.herokuapp.com/api/property/add";
 
             let formData = new FormData()
 
             formData.append('name', formik.values.name)
             formData.append('pricePerSm', +formik.values.pricePerSm)
             formData.append('about', formik.values.about)
-            formData.append('propertyFeatures', formik.values.propertyFeatures.split(", "))
-            formData.append('estateFeatures', formik.values.estateFeatures.split(", "))
+            formData.append('propertyFeatures', formik.values.propertyFeatures)
+            formData.append('estateFeatures', formik.values.estateFeatures)
             formData.append('category', formik.values.category)
             formData.append('state', formik.values.state)
             formData.append('city', formik.values.city)
             formData.append('address', formik.values.address)
             formData.append('LGA', formik.values.LGA)
-            formData.append('images', formik.values?.imageFiles)
+            // formData.append('images', formik.values?.imageFiles)
             formData.append('ticker', formik.values.ticker)
             formData.append('totalPlotSize', +formik.values.totalPlotSize)
+            // formData.append('files', imageFiles)
+            formData.append('addedBy', addedBy)
+
 
             // let data = {
             //     name: formik.values.name, pricePerSm: +formik.values.pricePerSm, about: formik.values.about, propertyFeatures: formik.values.propertyFeatures.split(", "), estateFeatures: formik.values.estateFeatures.split(", "),
@@ -153,14 +158,15 @@ export default function PropertyDetails(props) {
             await fetch(url, {
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmNzVhOWE1MGJmNjNlZDNjNTExNjUiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzA1NDU2MDgsImV4cCI6MTY3MzEzNzYwOH0.xopzgQH16saT9xJLxRVhtAhoDo26s3NQNY2lgd0Gttk`
+                    "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmZmI4ZTllNmJjYWMzMmEwOWQ0YTgiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzQ5Mzk2NTIsImV4cCI6MTY3NzUzMTY1Mn0.oIgdmmIjqLjeAxitTIBEZfuvMfa3jDRxuE_D2RCq-Q4`
                 },
                 method: "POST",
-                body: JSON.stringify(data)
+                body: formData
             })
-                .then((e) => e.json())
+                .then((e) => console.log(e))
+                // .then((e) => e.json())
                 .then(res => {
-                    console.log(res.data)
+                    console.log(res)
                     localStorage.setItem("propertyId", res.data._id)
                     localStorage.setItem("pricePerSm", res.data.pricePerSm)
                 })
@@ -441,14 +447,14 @@ export default function PropertyDetails(props) {
                         </div>
                     </div>
                     <div className=' w-full  ' >
-                        <p>Ticker</p>
+                        <p>Plot Code</p>
                         <Input
                             name="ticker"
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("ticker", true, true)
                             }
-                            placeholder='Plot Ticker' height="45px" border=" 1px solid #000 " />
+                            placeholder='Plot Code' height="45px" border=" 1px solid #000 " />
                         <div className="w-full h-auto pt-2">
                             {formik.touched.ticker && formik.errors.ticker && (
                                 <motion.p
@@ -506,7 +512,7 @@ export default function PropertyDetails(props) {
                 {/* <p className=' my-6 font-Montserrat-Bold  ' >Edit Norah’s Court Estate</p> */}
                 <br />
                 <p className=' text-[15px] font-Inter-SemiBold mb-2 ' >Upload Photo</p>
-                <Input type="file" paddingTop="7px" height="45px" border=" 1px solid #000 " />
+                <Input type="file" paddingTop="7px" height="45px" border=" 1px solid #000 " name={firstImage} onChange={(e) => setFirstImage(e.target.value)} />
                 <p className=' text-[15px] font-Inter-Regular text-blue-500 ' >First photo would be the display photo </p>
                 <div className=' flex items-center mt-6 ' >
                     <label className=' w-[25px] h-[25px] ] rounded-full  ' >
@@ -519,7 +525,7 @@ export default function PropertyDetails(props) {
                     {renderPhotos(selectedFiles)}
                 </div>
                 <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Upload Video</p>
-                <Input type="file" paddingTop="7px" placeholder='Enter the address of the property' height="45px" border=" 1px solid #000 " />
+                <Input type="file" paddingTop="7px" placeholder='' height="45px" border=" 1px solid #000 " />
                 <button onClick={() => submit()} className=' bg-[#3DB2FF] mx-auto w-[300px] h-10 mt-8 rounded-md text-white font-Inter-Bold ' >Next</button>
             </div>
         )

@@ -9,12 +9,10 @@ export default function Index() {
             <div className=" fixed top-0 inset-x-0 z-20 bg-white " >
                 <Navbar />
             </div>
-            {/* <div className=' w-full flex flex-1 overflow-y-hidden ' > */}
             <SideBar />
             <div className=' flex flex-1 w-full pt-[90px] overflow-y-auto py-10 px-12 ' >
                 <Outlet />
             </div>
-            {/* </div> */}
         </div>
     )
 }

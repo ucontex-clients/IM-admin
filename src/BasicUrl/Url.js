@@ -1,5 +1,5 @@
  
-const liveUrl = 'https://ima-propt-api.herokuapp.com/api/v1';
+const liveUrl = 'https://im-property.herokuapp.com/';
 const website = 'https://ima-frontend.vercel.app'
 
 export const BASEURL = {

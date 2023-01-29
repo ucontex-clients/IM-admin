@@ -15,7 +15,7 @@ export default function Index() {
 
     const navigate = useNavigate()
     let [property, setProperty] = useState([]);
-    const [url] = useState("https://alert-battledress-boa.cyclic.app/api/property/all");
+    const [url] = useState("https://im-property.herokuapp.com/api/property/all");
 
     useEffect(() => {
         loadProperties();

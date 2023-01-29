@@ -14,7 +14,7 @@ export default function PreviewProperty(props) {
     const [modal, setShowModal] = React.useState(0)
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(false);
-    const [url, setUrl] = useState("https://alert-battledress-boa.cyclic.app/api/property/add");
+    const [url, setUrl] = useState("https://im-property.herokuapp.com/api/property/add");
 
     let [layoutMap, setLayoutMap] = useState([]);
     useEffect(() => {
