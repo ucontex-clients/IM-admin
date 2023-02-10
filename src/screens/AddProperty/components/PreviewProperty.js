@@ -14,121 +14,62 @@ export default function PreviewProperty(props) {
     const [modal, setShowModal] = React.useState(0)
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(false);
-    const [url, setUrl] = useState("https://im-property.herokuapp.com/api/property/add");
+    const [property, setProperty] = useState([]);
+    let [layoutMap, setLayoutMap] = useState(JSON.parse(localStorage.getItem("layout")));
 
-    let [layoutMap, setLayoutMap] = useState([]);
     useEffect(() => {
-        setLayoutMap(JSON.parse(localStorage.getItem("layout")))
-    }, []);
+        setLayoutMap(JSON.parse(localStorage.getItem("layout")));
+        loadProperty();
+    }, [layoutMap]);
 
-    // let property = props.values
-    // console.log(property)
-    // const submit = async () => {
-    //     setLoading(true)
-    //     try {
-
-    //         let formData = new FormData()
-
-    //         formData.append('name', props.values.name)
-    //         formData.append('pricePerSm', props.amount)
-    //         formData.append('about', props.values.about)
-    //         formData.append('features', props.values.features)
-    //         formData.append('category', props.values.category)
-    //         formData.append('state', props.values.state)
-    //         formData.append('city', props.values.city)
-    //         formData.append('address', props.values.address)
-    //         formData.append('LGA', props.data.LGA)
-    //         formData.append('color', props.data.color)
-    //         formData.append('images', props.data?.images)
-
-    //         // const request = await axios.default.post(url, formData, {
-    //         await axios.default.post(url, formData, {
-    //             headers: {
-    //                 'content-type': 'application/json',
-    //                 // Authorization : `Bearer ${getCookie("token")}`
-    //                 Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmNzVhOWE1MGJmNjNlZDNjNTExNjUiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzA1NDU2MDgsImV4cCI6MTY3MzEzNzYwOH0.xopzgQH16saT9xJLxRVhtAhoDo26s3NQNY2lgd0Gttk`
-    //             }
-    //         })
-    //         setMessage('Property Uploaded Successfully')
-    //         setShowModal(1)
-    //         const t1 = setTimeout(() => {
-    //             clearTimeout(t1);
-    //         }, 2000);
-
-    //     } catch (error) {
-    //         // console.log(error.response.data.error.message);
-
-    //         // setMessage(error.response.data.error.message)
-    //         setShowModal(2)
-    //         const t1 = setTimeout(() => {
-    //             setShowModal(0)
-    //             setLoading(false)
-    //             clearTimeout(t1);
-    //         }, 2000);
-    //         return error
-    //     }
-    //     setLoading(false)
-    // };
+    let loadProperty = () => {
+        let id = localStorage.getItem("propertyId");
+        let url = "https://im-property.herokuapp.com/api/property/single/" + id;
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                setProperty(res.message.data)
+            })
+            .catch(err => console.log(err))
+    };
 
     let submit = async () => {
-        console.log("here")
         setMessage('Property Uploaded Successfully');
-        navigate("dashboard/add-property");
-        localStorage.clear();
+        navigate("/dashboard/add-property");
+        localStorage.removeItem("propertyId");
+        localStorage.removeItem("pricePerSm");
+        localStorage.removeItem("layout");
     };
 
     return (
         <div className=' w-full flex-col flex relative ' >
 
             <Modal message={message} modal={modal} />
-            <div className=' w-full h-[360px]  flex  ' >
-                <div className=' w-full h-full mr-4 ' >
-                    <div className=' bg-red-800 rounded-lg w-full h-full ' >
 
-                    </div>
-                </div>
-                <div className=' w-fit flex ' >
-                    <div className=' flex' >
-                        <div className=' flex flex-col mr-4' >
-                            <div className=' bg-red-800 rounded-lg w-[169px] h-full ' >
-
-                            </div>
-                            <div className=' bg-red-800 rounded-lg w-[169px]  mt-4 h-full ' >
-
-                            </div>
-                            <div className=' bg-red-800 rounded-lg w-[169px]  mt-4 h-full ' >
-
-                            </div>
-                        </div>
-                        <div className=' flex flex-col' >
-                            <div className=' bg-red-800 rounded-lg w-[169px] h-full ' >
-
-                            </div>
-                            <div className=' bg-red-800 rounded-lg w-[169px]  mt-4 h-full ' >
-
-                            </div>
-                            <div className=' bg-red-800 rounded-lg w-[169px]  mt-4 h-full ' >
-
-                            </div>
-                        </div>
-                    </div>
+            <div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", background: "#708080", gap: "15px", padding: "15px" }}>
+                    {property?.imagesURLs?.map((f, g) => {
+                        return <>
+                            <img style={{ height: "100%", borderRadius: "5px" }} key={g} src={f} alt={g} />
+                        </>
+                    })}
                 </div>
             </div>
-            <p className=' font-Montserrat-Bold text-xl mt-4 ' >{props.values?.name}</p>
+            <p className=' font-Montserrat-Bold text-xl mt-4 ' >{property?.name}</p>
             <div className=' flex items-center mt-4 ' >
                 <img src={Location} className="w-[14px]" alt="" />
-                <p className=' font-Montserrat-Medium text-[15px] text-[#6C6C6C] ml-2 ' >{props.values?.location?.address + ", " + props.values?.location?.city + ", " + props.values?.location?.LGA + ", " + props.values?.location?.state}</p>
+                <p className=' font-Montserrat-Medium text-[15px] text-[#6C6C6C] ml-2 ' >{property?.location?.address + ", " + property?.location?.city + ", " + property?.location?.LGA + ", " + property?.location?.state}</p>
             </div>
-            <p className=' font-Montserrat-Bold text-lg mt-2 ' >N{props.values?.pricePerSm} per Plot</p>
+            <p className=' font-Montserrat-Bold text-lg mt-2 ' >N{property?.pricePerSm} per Plot</p>
             <div className=' w-[760px] border rounded-lg mt-6 border-[#C6C5C5] p-4 ' >
-                <p className=' font-Montserrat-Bold text-xl ' >{props.values?.name}</p>
-                <p className=' font-Montserrat-Regular mt-6 ' >{props.values?.about}</p>
+                <p className=' font-Montserrat-Bold text-xl ' >{property?.name}</p>
+                <p className=' font-Montserrat-Regular mt-6 ' >{property?.about}</p>
             </div>
             <div className=' w-[760px] border rounded-lg mt-6 flex border-[#C6C5C5] p-4 ' >
                 <div className=' w-full ' >
                     <p className=' font-Montserrat-Bold text-xl ' >Estate Features</p>
                     {
-                        props.values?.estateFeatures?.map((e, i) => {
+                        property?.estateFeatures?.map((e, i) => {
                             return <>
                                 <p className=' font-Montserrat-Regular mt-6 ' >{e}</p>
                             </>
@@ -138,7 +79,7 @@ export default function PreviewProperty(props) {
                 <div className=' w-full ' >
                     <p className=' font-Montserrat-Bold text-xl ' >Property Features</p>
                     {
-                        props.values?.propertyFeatures?.map((e, i) => {
+                        property?.propertyFeatures?.map((e, i) => {
                             return <>
                                 <p className=' font-Montserrat-Regular mt-6 ' >{e}</p>
                             </>
@@ -146,9 +87,9 @@ export default function PreviewProperty(props) {
                     }
                 </div>
             </div>
-            <p className=' font-Montserrat-Bold text-[15px] mt-6' style={{ textTransform: "capitalize" }} >{props.values?.name}</p>
+            <p className=' font-Montserrat-Bold text-[15px] mt-6' style={{ textTransform: "capitalize" }} >{property?.name}</p>
             <div className=' w-[860px] border rounded-lg  pb-8 flex flex-col border-[#C6C5C5] p-1 ' >
-                <p className=' font-Montserrat-Regular text-[#038566] ml-auto mr-6' >30 Plots</p>
+                <p className=' font-Montserrat-Regular text-[#038566] ml-auto mr-6' >{property?.plotLayout?.length} Plots</p>
                 <div className=' w-full grid grid-cols-6 gap-4 mt-4 ' >
                     {layoutMap?.map((e, i) => {
                         return (

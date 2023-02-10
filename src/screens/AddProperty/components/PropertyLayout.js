@@ -6,6 +6,7 @@ import Modal from '../../../components/modal';
 
 export default function PropertyLayout(props) {
     let price = +localStorage.getItem("pricePerSm");
+    let propertyId = localStorage.getItem("propertyId");
     let [length, setLength] = useState(1);
     let [width, setWidth] = useState(1);
     let [cost, setCost] = useState(false);
@@ -23,18 +24,17 @@ export default function PropertyLayout(props) {
             length: +length,
             color: "red"
         };
-        let propertyId = localStorage.getItem("propertyId");
-        let url = "https://alert-battledress-boa.cyclic.app/api/property/addplot/" + propertyId;
+        let url = "https://im-property.herokuapp.com/api/property/addplot/" + propertyId;
 
 
         await axios.put(url, data, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmNzVhOWE1MGJmNjNlZDNjNTExNjUiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzA1NDU2MDgsImV4cCI6MTY3MzEzNzYwOH0.xopzgQH16saT9xJLxRVhtAhoDo26s3NQNY2lgd0Gttk`
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzlkZWNkZWZiY2RmNWM4ZDM5YTdmYzUiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzM3MzQ1MTAsImV4cCI6MTY3NjMyNjUxMH0.lXjavQVqwEGTML2mEfinKM9fIBJeEaEOB6yHTSJxq20`
             }
         })
             .then(res => {
-                console.log(res)
+                // console.log(res)
             })
 
         let obj = {
@@ -69,8 +69,8 @@ export default function PropertyLayout(props) {
             <div className=' w-full flex ' >
                 <div className=' w-full mr-3 overflow-y-auto flex flex-col font-Montserrat-Medium mt-4 p-6 pb-12 border rounded-lg ' >
                     <p className=' my-6 font-Montserrat-Bold text-xl ' >About Property Info</p>
-                    <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Upload Layout Photo</p>
-                    <Input type="file" paddingTop="7px" height="45px" border=" 1px solid #000 " />
+                    {/* <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Upload Layout Photo</p>
+                    <Input type="file" paddingTop="7px" height="45px" border=" 1px solid #000 " /> */}
                     <div className=' w-full mt-3 border border-[#000000] rounded-md p-6 ' >
                         <p className=' text-[15px] font-Inter-SemiBold mb-2 ' >New Plot</p>
                         <p className=' text-[15px] my-6 font-Inter-Regular' >Measurement</p>
@@ -95,10 +95,10 @@ export default function PropertyLayout(props) {
                         <button className=' w-full bg-[#3DB2FF] h-[45px] text-white rounded-md mt-10  font-Inter-Bold ' onClick={() => createLayout()}>Add Layout</button>
                     </div>
                     <div className=' flex items-center mt-6 ' >
-                        <button className=' w-[25px] h-[25px] ] rounded-full  ' >
+                        {/* <button className=' w-[25px] h-[25px] ] rounded-full  ' >
                             <img src={Add} className=" w-full h-full object-cover " alt="add" />
-                        </button>
-                        <p className=' font-Inter-Regular ml-3 ' >Add more photos</p>
+                        </button> */}
+                        {/* <p className=' font-Inter-Regular ml-3 ' >Add more photos</p> */}
                     </div>
                 </div>
 

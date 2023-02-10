@@ -10,13 +10,8 @@ import Modal from '../../../components/modal'
 
 export default function PropertyDetails(props) {
 
-    const navigate = useNavigate()
-    const [country, setCountry] = React.useState(["loading"]);
-    const [selectedcountry, setSelectedCountry] = React.useState("");
     const [stateloading, setStateLoading] = React.useState(false);
     const [state, setState] = React.useState([]);
-    const [cityloading, setCityLoading] = React.useState(false);
-    const [city, setCity] = React.useState([]);
     const [modal, setShowModal] = React.useState(0)
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(true);
@@ -114,15 +109,9 @@ export default function PropertyDetails(props) {
                 setShowModal(0)
                 clearTimeout(t1);
             }, 2000);
-            //   alert('You have to fill in the form correctly to continue');
             setLoading(false);
             return;
         } else {
-            // props.value({
-            //     name: formik.values.name, pricePerSm: formik.values.pricePerSm, about: formik.values.about, propertyFeatures: formik.values.propertyFeatures, estateFeatures: formik.values.estateFeatures, state: formik.values.state, city: formik.values.city, address: formik.values.address, LGA: formik.values.LGA, color: formik.values.color, images: imageFiles,
-            //     totalPlotSize: formik.values.totalPlotSize, ticker: formik.values.ticker, category: formik.values.category,
-            // })
-            // props.next(true)
             let url = "https://im-property.herokuapp.com/api/property/add";
 
             let formData = new FormData()
@@ -139,24 +128,10 @@ export default function PropertyDetails(props) {
             formData.append('LGA', formik.values.LGA)
             formData.append('ticker', formik.values.ticker)
             formData.append('totalPlotSize', 3000)
-            // formData.append('addedBy', addedBy)
+            formData.append('addedBy', addedBy)
             for (let i = 0; i < imageFiles.length; i++) {
                 formData.append('files', imageFiles[i]);
             }
-
-
-            // let data = {
-            //     name: formik.values.name, pricePerSm: +formik.values.pricePerSm, about: formik.values.about, propertyFeatures: formik.values.propertyFeatures.split(", "), estateFeatures: formik.values.estateFeatures.split(", "),
-            //     state: formik.values.state, city: formik.values.city, address: formik.values.address, LGA: formik.values.LGA, images: imageFiles,
-            //     totalPlotSize: +formik.values.totalPlotSize, ticker: formik.values.ticker, category: formik.values.category,
-            // }
-            let data = {
-                name: formik.values.name, pricePerSm: +formik.values.pricePerSm, about: formik.values.about, propertyFeatures: formik.values.propertyFeatures.split(", "),
-                estateFeatures: formik.values.estateFeatures.split(", "),
-                state: formik.values.state, city: formik.values.city, address: formik.values.address, LGA: formik.values.LGA,
-                totalPlotSize: +formik.values.totalPlotSize, ticker: formik.values.ticker, category: formik.values.category,
-            }
-            console.log(formData)
             await fetch(url, {
                 headers: {
                     "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmZmI4ZTllNmJjYWMzMmEwOWQ0YTgiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzQ5OTA5NzUsImV4cCI6MTY3NzU4Mjk3NX0.091a8E-c1jWEFgWOtaLkqyOZ-oipciWAiNT7FZpfwnE`
@@ -164,10 +139,8 @@ export default function PropertyDetails(props) {
                 method: "POST",
                 body: formData
             })
-                // .then((e) => console.log(e))
                 .then((e) => e.json())
                 .then(res => {
-                    console.log(res)
                     localStorage.setItem("propertyId", res._id)
                     localStorage.setItem("pricePerSm", res.pricePerSm)
                 })
@@ -513,7 +486,7 @@ export default function PropertyDetails(props) {
                 {/* <p className=' my-6 font-Montserrat-Bold  ' >Edit Norah’s Court Estate</p> */}
                 <br />
                 <p className=' text-[15px] font-Inter-SemiBold mb-2 ' >Upload Photo</p>
-                <Input type="file" paddingTop="7px" height="45px" border=" 1px solid #000 " name={firstImage} onChange={(e) => setFirstImage(e.target.value)} />
+                {/* <Input type="file" paddingTop="7px" height="45px" border=" 1px solid #000 " name={firstImage} onChange={(e) => setFirstImage(e.target.value)} /> */}
                 <p className=' text-[15px] font-Inter-Regular text-blue-500 ' >First photo would be the display photo </p>
                 <div className=' flex items-center mt-6 ' >
                     <label className=' w-[25px] h-[25px] ] rounded-full  ' >
@@ -525,8 +498,8 @@ export default function PropertyDetails(props) {
                 <div className=' flex w-full overflow-x-auto ' >
                     {renderPhotos(selectedFiles)}
                 </div>
-                <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Upload Video</p>
-                <Input type="file" paddingTop="7px" placeholder='' height="45px" border=" 1px solid #000 " />
+                {/* <p className=' text-[15px] mt-6 font-Inter-SemiBold mb-2 ' >Upload Video</p>
+                <Input type="file" paddingTop="7px" placeholder='' height="45px" border=" 1px solid #000 " /> */}
                 <button onClick={() => submit()} className=' bg-[#3DB2FF] mx-auto w-[300px] h-10 mt-8 rounded-md text-white font-Inter-Bold ' >Next</button>
             </div>
         )

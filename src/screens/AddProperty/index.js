@@ -23,7 +23,7 @@ export default function Index() {
         fetch(url)
             .then(res => res.json())
             .then(res => {
-                setProperty(res.data)
+                setProperty(res)
             })
             .catch(err => console.log(err))
     };
