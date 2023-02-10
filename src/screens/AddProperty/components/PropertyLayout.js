@@ -5,14 +5,10 @@ import axios from 'axios';
 import Modal from '../../../components/modal';
 
 export default function PropertyLayout(props) {
-    let [price, setPrice] = useState(+localStorage.getItem("pricePerSm"));
+    let price = +localStorage.getItem("pricePerSm");
     let [length, setLength] = useState(1);
     let [width, setWidth] = useState(1);
     let [cost, setCost] = useState(false);
-    // let sendValue = (e) => {
-    //     setPrice(e);
-    //     props.value(e)
-    // };
     let [layout, setLayout] = useState([]);
     let [layoutMap, setLayoutMap] = useState([]);
     const [modal, setShowModal] = React.useState(0)
@@ -122,14 +118,6 @@ export default function PropertyLayout(props) {
                                 )
                             })}
                         </div>
-                        {/* <div className=' w-full grid grid-cols-3 gap-6 ' >
-                            <div className=' w-full  flex flex-col border border-[#C6C5C5] relative rounded-md ' >
-                                <p className=' text-center font-Montserrat-Regular text-xs absolute rotate-90 -left-[10px] top-6 ' >15.3m</p>
-                                <p className=' text-center font-Montserrat-Regular text-xs ' >30.6m</p>
-                                <p className=' text-center font-Montserrat-Bold text-xs my-2 text-[#000] ' >464.89 SQ.M</p>
-                                <p className=' text-center font-Montserrat-SemiBold text-xs text-[#3DB2FF] ' >N400,000</p>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>

@@ -137,11 +137,12 @@ export default function PropertyDetails(props) {
             formData.append('city', formik.values.city)
             formData.append('address', formik.values.address)
             formData.append('LGA', formik.values.LGA)
-            // formData.append('images', formik.values?.imageFiles)
             formData.append('ticker', formik.values.ticker)
-            formData.append('totalPlotSize', +formik.values.totalPlotSize)
-            // formData.append('files', imageFiles)
-            formData.append('addedBy', addedBy)
+            formData.append('totalPlotSize', 3000)
+            // formData.append('addedBy', addedBy)
+            for (let i = 0; i < imageFiles.length; i++) {
+                formData.append('files', imageFiles[i]);
+            }
 
 
             // let data = {
@@ -155,20 +156,20 @@ export default function PropertyDetails(props) {
                 state: formik.values.state, city: formik.values.city, address: formik.values.address, LGA: formik.values.LGA,
                 totalPlotSize: +formik.values.totalPlotSize, ticker: formik.values.ticker, category: formik.values.category,
             }
+            console.log(formData)
             await fetch(url, {
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmZmI4ZTllNmJjYWMzMmEwOWQ0YTgiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzQ5Mzk2NTIsImV4cCI6MTY3NzUzMTY1Mn0.oIgdmmIjqLjeAxitTIBEZfuvMfa3jDRxuE_D2RCq-Q4`
+                    "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmZmI4ZTllNmJjYWMzMmEwOWQ0YTgiLCJyb2xlIjoibm9ybWFsQWRtaW4iLCJpYXQiOjE2NzQ5OTA5NzUsImV4cCI6MTY3NzU4Mjk3NX0.091a8E-c1jWEFgWOtaLkqyOZ-oipciWAiNT7FZpfwnE`
                 },
                 method: "POST",
                 body: formData
             })
-                .then((e) => console.log(e))
-                // .then((e) => e.json())
+                // .then((e) => console.log(e))
+                .then((e) => e.json())
                 .then(res => {
                     console.log(res)
-                    localStorage.setItem("propertyId", res.data._id)
-                    localStorage.setItem("pricePerSm", res.data.pricePerSm)
+                    localStorage.setItem("propertyId", res._id)
+                    localStorage.setItem("pricePerSm", res.pricePerSm)
                 })
             props.next(true)
         }
