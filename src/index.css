@@ -3,56 +3,79 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Inter-ExtraBold';
-    src: url("../src/assests/fonts/Inter-ExtraBold.ttf")
+  font-family: 'Inter-ExtraBold';
+  src: url('../src/assests/fonts/Inter-ExtraBold.ttf');
 }
 
 @font-face {
-    font-family: 'Inter-Bold';
-    src: url("../src/assests/fonts/Inter-Bold.ttf")
+  font-family: 'Inter-Bold';
+  src: url('../src/assests/fonts/Inter-Bold.ttf');
 }
 
 @font-face {
-    font-family: 'Inter-Medium';
-    src: url("../src/assests/fonts/Inter-Medium.ttf")
+  font-family: 'Inter-Medium';
+  src: url('../src/assests/fonts/Inter-Medium.ttf');
 }
 
 @font-face {
-    font-family: 'Inter-Regular';
-    src: url("../src/assests/fonts/Inter-Regular.ttf")
+  font-family: 'Inter-Regular';
+  src: url('../src/assests/fonts/Inter-Regular.ttf');
 }
 
 @font-face {
-    font-family: 'Inter-SemiBold';
-    src: url("../src/assests/fonts/Inter-SemiBold.ttf")
-} 
-
-@font-face {
-    font-family: 'Montserrat-Black';
-    src: url("../src/assests/fonts/Montserrat-Black.otf")
+  font-family: 'Inter-SemiBold';
+  src: url('../src/assests/fonts/Inter-SemiBold.ttf');
 }
 
 @font-face {
-    font-family: 'Montserrat-ExtraBold';
-    src: url("../src/assests/fonts/Montserrat-ExtraBold.otf")
+  font-family: 'Montserrat-Black';
+  src: url('../src/assests/fonts/Montserrat-Black.otf');
 }
 
 @font-face {
-    font-family: 'Montserrat-Bold';
-    src: url("../src/assests/fonts/Montserrat-Bold.otf")
+  font-family: 'Montserrat-ExtraBold';
+  src: url('../src/assests/fonts/Montserrat-ExtraBold.otf');
 }
 
 @font-face {
-    font-family: 'Montserrat-Medium';
-    src: url("../src/assests/fonts/Montserrat-Medium.otf")
+  font-family: 'Montserrat-Bold';
+  src: url('../src/assests/fonts/Montserrat-Bold.otf');
 }
 
 @font-face {
-    font-family: 'Montserrat-Regular';
-    src: url("../src/assests/fonts/Montserrat-Regular.otf")
+  font-family: 'Montserrat-Medium';
+  src: url('../src/assests/fonts/Montserrat-Medium.otf');
 }
 
 @font-face {
-    font-family: 'Montserrat-SemiBold';
-    src: url("../src/assests/fonts/Montserrat-SemiBold.otf")
-} 
+  font-family: 'Montserrat-Regular';
+  src: url('../src/assests/fonts/Montserrat-Regular.otf');
+}
+
+@font-face {
+  font-family: 'Montserrat-SemiBold';
+  src: url('../src/assests/fonts/Montserrat-SemiBold.otf');
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
