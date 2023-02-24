@@ -1,20 +1,18 @@
-import React from 'react'
-import Layout from '../../components/layout'
 import { Box, TextField, Typography, Grid } from '@mui/material'
 import money from '../../assests/images/icons/Money.png'
 import user from '../../assests/images/icons/People.png'
 import equal from '../../assests/images/icons/Equal.png'
 import booking from '../../assests/images/icons/Booking2.png'
-import { DashboardChart } from '../../components/chart/dashboard'
+import Layout from '../../components/layout'
+import WalletTab from '../../components/Tabs/WalletTab'
 
 const info = [
   { title: 'Total Revenue', no: '₦ 15,900,091', im: money },
-  { title: 'Total Property', no: '40', im: equal },
-  { title: 'Total Client', no: '349', im: user },
-  { title: 'Total Booking', no: '789', im: booking },
+  { title: 'ESP Commission', no: '40', im: equal },
+  { title: 'Withdrawal', no: '349', im: user },
 ]
 
-export default function Index() {
+export default function Wallet() {
   return (
     <Layout>
       <Box sx={{ p: 5, width: '100%' }}>
@@ -25,7 +23,7 @@ export default function Index() {
             alignItems: 'center',
           }}
         >
-          <Typography variant="h5">Dashboard</Typography>
+          <Typography variant="h5">All</Typography>
           <Box sx={{ width: '30%' }}>
             <TextField
               fullWidth
@@ -79,8 +77,8 @@ export default function Index() {
             )
           })}
         </Grid>
-        <Box sx={{ mt: 2, pb: 5 }}>
-          <DashboardChart />
+        <Box>
+          <WalletTab />
         </Box>
       </Box>
     </Layout>

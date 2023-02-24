@@ -10,7 +10,7 @@ function Layout({ children }) {
       </div>
       <SideBar />
       <div className=" w-full h-screen flex flex-1 pt-[60px] overflow-y-auto overflow-x-hidden ">
-        {children}
+        <div style={{ backgroundColor: '#fff', width: '100%' }}>{children}</div>
       </div>
     </div>
   )

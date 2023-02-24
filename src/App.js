@@ -1,11 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
-import Home from './screens/Home'
 import Property from './screens/Property'
 import Booking from './screens/Booking'
 import Client from './screens/Client'
@@ -19,11 +13,15 @@ import EditProperty from './screens/Property/OtherScreens/EditProperty'
 import Downlines from './screens/Esp/OtherScreen/Downlines'
 import Login from './screens/Login'
 import { MyBlogs } from './screens/Blogs'
-import { useState } from 'react'
+// import { useState } from 'react'
 import ViewProperty from './screens/Property/OtherScreens/ViewProperty'
+import ViewClient from './screens/Client/ViewClient'
+import Wallet from './screens/Wallet'
+import WalletPayment from './screens/Wallet/Payment'
+import WalletPaymentView from './screens/Wallet/View'
 
 function App() {
-  const [user, setUser] = useState(true)
+  // const [user, setUser] = useState(true)
 
   return (
     <div>
@@ -40,8 +38,12 @@ function App() {
           <Route path="/booking" element={<Booking />} />
           <Route path="/blog" element={<MyBlogs />} />
           <Route path="/client" element={<Client />} />
+          <Route path="/client/view" element={<ViewClient />} />
           <Route path="/user-info" element={<ProfileInfo />} />
           <Route path="/esp" element={<Esp />} />
+          <Route path="/wallet" element={<Wallet />} />
+          <Route path="/wallet/payment" element={<WalletPayment />} />
+          <Route path="/wallet/payment/view" element={<WalletPaymentView />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/esp/downlines" element={<Downlines />} />
           <Route path="/sell-property" element={<SellProperty />} />

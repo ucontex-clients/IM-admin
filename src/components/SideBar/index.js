@@ -16,6 +16,7 @@ export default function Index() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const path = pathname.slice('1').split('/')[0]
+  const path2 = pathname.slice('1').split('/')[1]
   const SideBarArray = [
     {
       name: 'Dashboard',
@@ -56,7 +57,10 @@ export default function Index() {
       name: 'Wallet',
       image: wallet,
       route: 'wallet',
-      others: ['Transaction', 'Payment'],
+      others: [
+        { name: 'Transaction', route: 'wallet/transaction', id: 'transaction' },
+        { name: 'Payment', route: 'wallet/payment', id: 'payment' },
+      ],
     },
     {
       name: 'Support',
@@ -74,17 +78,17 @@ export default function Index() {
       route: 'settings',
     },
   ]
-  console.log('path', path)
+  // console.log('path', path2)
   const ClickHandler = (route, data) => {
     // let route = item.toLowerCase().replace(' ', '-')
-    console.log(route)
-    if (!data) {
-      if (route === 'Dashboard') {
-        navigate('/dashboard')
-      } else {
-        navigate(`/${route}`)
-      }
-    }
+    // console.log(route)
+    // if (!data) {
+    //   if (route === 'Dashboard') {
+    //     navigate('/dashboard')
+    //   } else {
+    navigate(`/${route}`)
+    //   }
+    // }
   }
 
   return (
@@ -131,11 +135,22 @@ export default function Index() {
                 <div className=" w-full px-5 mt-3 ">
                   {item.others.map((item) => {
                     return (
-                      <button key={item} className=" flex mb-6 items-center ">
+                      <button
+                        onClick={() => ClickHandler(item.route, item.others)}
+                        key={item.name}
+                        className={
+                          item.id === path2
+                            ? ' bg-[#FFFFFF66]  flex items-center rounded-md h-[50px] w-full '
+                            : '  flex items-center rounded-md h-[50px] w-full '
+                        }
+                        // className=" flex mb-6 items-center "
+                      >
                         <div className=" w-9 h-5 "></div>
-                        <p className=" text-lg font-Inter-Medium ml-6 text-white ">
-                          {item}
-                        </p>
+                        <div>
+                          <p className=" text-lg font-Inter-Medium ml-6 text-white ">
+                            {item.name}
+                          </p>
+                        </div>
                       </button>
                     )
                   })}
